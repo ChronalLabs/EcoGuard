@@ -1,0 +1,17 @@
+@st.cache_resource
+def load_model():
+    from sklearn.ensemble import RandomForestRegressor
+    import pandas as pd
+    
+    df = pd.read_csv("data/city_day.csv")
+    df = df.dropna()
+
+    X = df[["PM2.5", "PM10", "NO", "NO2", "SO2", "CO", "O3"]]
+    y = df["AQI"]
+
+    model = RandomForestRegressor(n_estimators=50)
+    model.fit(X, y)
+
+    return model
+
+model = load_model()
